@@ -20,3 +20,9 @@ while circleAvatar's backgroundColor, if completed was true, was set to just "bl
 
 3rd test fix - buttons were placed incorrectly, CancelButton was placed where
 adding happens, adding button where placed where cancelling happens. Swapped the places for OKButton with CancelButton, and names OK with Cancel, so now logic follows the labels
+
+In addition, in main.dart in \_handleNewItem item was always constant with literal string value of "itemText". That is why nothing new showed up when typing. I removed const and put itemText parameter instead of literal string value "itemText"
+
+## Result
+
+After all of these fixes, all of the test runs are checked as green.
