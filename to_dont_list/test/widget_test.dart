@@ -47,13 +47,15 @@ void main() {
     final avatarFinder = find.byType(CircleAvatar);
 
     CircleAvatar circ = tester.firstWidget(avatarFinder);
-    Text ctext = circ.child as Text;
+    Text ctext = circ.child
+        as Text; //here it seems that test is expecting circleAvatars child to be text
 
     // Use the `findsOneWidget` matcher provided by flutter_test to verify
     // that the Text widgets appear exactly once in the widget tree.
     expect(abbvFinder, findsOneWidget);
     expect(circ.backgroundColor, Colors.black54);
-    expect(ctext.data, "t");
+    expect(ctext.data,
+        "t"); //reason I swapped the values of ListTile's title and CircleAvatar
   });
 
   testWidgets('Default ToDoList has one item', (tester) async {
