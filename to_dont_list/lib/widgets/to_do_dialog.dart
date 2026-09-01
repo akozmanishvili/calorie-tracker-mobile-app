@@ -40,9 +40,9 @@ class _ToDoDialogState extends State<ToDoDialog> {
       ),
       actions: <Widget>[
         ElevatedButton(
-          key: const Key("OkButton"),
+          key: const Key("CancelButton"),
           style: yesStyle,
-          child: const Text('OK'),
+          child: const Text('Cancel'),
           onPressed: () {
             setState(() {
               Navigator.pop(context);
@@ -55,7 +55,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
           valueListenable: _inputController,
           builder: (context, value, child) {
             return ElevatedButton(
-              key: const Key("CancelButton"),
+              key: const Key("OKButton"),
               style: noStyle,
               onPressed: value.text.isNotEmpty
                   ? () {
@@ -65,7 +65,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
                       });
                     }
                   : null,
-              child: const Text('Cancel'),
+              child: const Text('OK'),
             );
           },
         ),

@@ -15,3 +15,8 @@ Amiko's to dont list App.
 In addition, 2nd test was expecting black54:
 (expect(circ.backgroundColor, Colors.black54);)
 while circleAvatar's backgroundColor, if completed was true, was set to just "black" instead of "black54", fixed this and now test is successful
+
+### 3rd Test
+
+3rd test fix - buttons were placed incorrectly, CancelButton was placed where
+adding happens, adding button where placed where cancelling happens. Swapped the places for OKButton with CancelButton, and names OK with Cancel, so now logic follows the labels
