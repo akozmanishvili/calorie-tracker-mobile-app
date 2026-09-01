@@ -25,7 +25,8 @@ class ToDoListItem extends StatelessWidget {
     // taking place and therefore which theme to use.
 
     return completed //
-        ? Colors.black
+        ? Colors
+            .black54 //test was expecting black54 while if completed is true, it used to it to just black, added 54 to black
         : Theme.of(context).primaryColor;
   }
 
