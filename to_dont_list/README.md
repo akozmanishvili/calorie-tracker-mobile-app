@@ -1,28 +1,33 @@
-# to_dont_list
+# Calorie Tracker
 
-Amiko's to dont list App.
+A simple Flutter app for estimating your daily calories and keeping track of what you eat.
 
-## Test fixes
+## Who is this for?
 
-### 1st Test
+Anyone who wants a quick way to check their daily maintenance calories and log meals throughout the day — no accounts, no ads, no complicated nutrition database to search through.
 
-1st test fix - abbreviation test fail: test was expecting a, but was getting substring(0,2) which is ad and thats the reason it was failing
+## What does it do?
 
-### 2nd Test
+You enter your weight, height, age, and sex once and the app calculates the number of calories you need per day to maintain your current weight. From there you can log each food you eat along with its calorie count, and the app keeps a running total of calories eaten versus calories remaining for the day.
 
-2nd test fix - test is expecting circleAvatar's child to be Text with abbreviaton t, but in to_do_item.dart circleAvatar's child wasn't a text nor abbreviaton. Set circleAvatar's child to Text with item.abbrev() value.
+## Why is it useful?
 
-In addition, 2nd test was expecting black54:
-(expect(circ.backgroundColor, Colors.black54);)
-while circleAvatar's backgroundColor, if completed was true, was set to just "black" instead of "black54", fixed this and now test is successful
+Most calorie-tracking apps come bundled with subscriptions, ads and complicated features you may not want. This app is fast to open, fast to use, and easy to understand.
 
-### 3rd Test
+## Screenshots
 
-3rd test fix - buttons were placed incorrectly, CancelButton was placed where
-adding happens, adding button where placed where cancelling happens. Swapped the places for OKButton with CancelButton, and names OK with Cancel, so now logic follows the labels
+![Profile setup screen](images/c1.png)
+![Calorie summary](images/c2.png)
+![Adding a food item](images/c3.png)
+![Added food item](images/c4.png)
 
-In addition, in main.dart in \_handleNewItem item was always constant with literal string value of "itemText". That is why nothing new showed up when typing. I removed const and put itemText parameter instead of literal string value "itemText"
+## Features
 
-## Result
+- Calculates maintenance calories using the Mifflin-St Jeor equation
+- Log food items with a name and calorie count
+- Running total of calories eaten vs. remaining for the day
+- Long-press a food entry to delete it
 
-After all of these fixes, all of the test runs are checked as green.
+## License
+
+See [LICENSE](LICENSE) for details.
