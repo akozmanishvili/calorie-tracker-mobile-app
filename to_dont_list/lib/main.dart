@@ -1,75 +1,100 @@
 // Started with https://docs.flutter.dev/development/ui/widgets-intro
 import 'package:flutter/material.dart';
-import 'package:to_dont_list/objects/item.dart';
-import 'package:to_dont_list/widgets/to_do_items.dart';
-import 'package:to_dont_list/widgets/to_do_dialog.dart';
+import 'package:to_dont_list/objects/food_item.dart';
+import 'package:to_dont_list/objects/user_peofile.dart';
+import 'package:to_dont_list/widgets/food_list_item.dart';
+import 'package:to_dont_list/widgets/food_dialog.dart';
+import 'package:to_dont_list/widgets/profile_form.dart';
 
-class ToDoList extends StatefulWidget {
-  const ToDoList({super.key});
+class CalorieTrackerApp extends StatefulWidget {
+  const CalorieTrackerApp({super.key});
 
   @override
-  State createState() => _ToDoListState();
+  State createState() => _CalorieTrackerAppState();
 }
 
-class _ToDoListState extends State<ToDoList> {
-  final List<Item> items = [const Item(name: "add more todos")];
-  final _itemSet = <Item>{};
+class _CalorieTrackerAppState extends State<CalorieTrackerApp> {
+  UserProfile? _profile;
+  final List<FoodItem> _foodItems = [];
 
-  void _handleListChanged(Item item, bool completed) {
+  int get _totalCaloriesEaten {
+    return _foodItems.fold(0, (sum, item) => sum + item.calories);
+  }
+
+  void _handleProfileCalculated(UserProfile profile) {
     setState(() {
-      // When a user changes what's in the list, you need
-      // to change _itemSet inside a setState call to
-      // trigger a rebuild.
-      // The framework then calls build, below,
-      // which updates the visual appearance of the app.
-
-      items.remove(item);
-      if (!completed) {
-        print("Completing");
-        _itemSet.add(item);
-        items.add(item);
-      } else {
-        print("Making Undone");
-        _itemSet.remove(item);
-        items.insert(0, item);
-      }
+      _profile = profile;
     });
   }
 
-  void _handleDeleteItem(Item item) {
+  void _handleFoodAdded(
+      String name,
+      int calories,
+      TextEditingController nameController,
+      TextEditingController caloriesController) {
     setState(() {
-      print("Deleting item");
-      items.remove(item);
+      _foodItems.insert(0, FoodItem(name: name, calories: calories));
+      nameController.clear();
+      caloriesController.clear();
     });
   }
 
-  void _handleNewItem(String itemText, TextEditingController textController) {
+  void _handleDeleteItem(FoodItem item) {
     setState(() {
-      print("Adding new item");
-      Item item = Item(
-          name:
-              itemText); //instead of string "itemText", we need parameter itemText
-      items.insert(0, item);
-      textController.clear();
+      _foodItems.remove(item);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_profile == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Calorie Tracker')),
+        body: ProfileForm(onProfileCalculated: _handleProfileCalculated),
+      );
+    }
+
+    final maintenance = _profile!.maintenanceCalories();
+    final eaten = _totalCaloriesEaten;
+    final remaining = maintenance - eaten;
+
     return Scaffold(
         appBar: AppBar(
-          title: const Text('To Do List'),
+          title: const Text('Calorie Tracker'),
         ),
-        body: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          children: items.map((item) {
-            return ToDoListItem(
-              item: item,
-              completed: _itemSet.contains(item),
-              onListChanged: _handleListChanged,
-              onDeleteItem: _handleDeleteItem,
-            );
-          }).toList(),
+        body: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'Maintenance: ${maintenance.toStringAsFixed(0)} cal',
+                    key: const Key("MaintenanceText"),
+                  ),
+                  Text(
+                    'Eaten today: $eaten cal',
+                    key: const Key("EatenText"),
+                  ),
+                  Text(
+                    'Remaining: ${remaining.toStringAsFixed(0)} cal',
+                    key: const Key("RemainingText"),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                children: _foodItems.map((item) {
+                  return FoodListItem(
+                    item: item,
+                    onDeleteItem: _handleDeleteItem,
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
         ),
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.add),
@@ -77,7 +102,7 @@ class _ToDoListState extends State<ToDoList> {
               showDialog(
                   context: context,
                   builder: (_) {
-                    return ToDoDialog(onListAdded: _handleNewItem);
+                    return FoodDialog(onFoodAdded: _handleFoodAdded);
                   });
             }));
   }
@@ -85,7 +110,7 @@ class _ToDoListState extends State<ToDoList> {
 
 void main() {
   runApp(const MaterialApp(
-    title: 'To Do List',
-    home: ToDoList(),
+    title: 'Calorie Tracker',
+    home: CalorieTrackerApp(),
   ));
 }
