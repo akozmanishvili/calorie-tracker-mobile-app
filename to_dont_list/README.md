@@ -27,7 +27,3 @@ Most calorie-tracking apps come bundled with subscriptions, ads and complicated 
 - Log food items with a name and calorie count
 - Running total of calories eaten vs. remaining for the day
 - Long-press a food entry to delete it
-
-## License
-
-See [LICENSE](LICENSE) for details.
