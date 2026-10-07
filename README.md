@@ -16,10 +16,10 @@ Most calorie-tracking apps come bundled with subscriptions, ads and complicated 
 
 ## Screenshots
 
-![Profile setup screen](images/c1.jpeg)
-![Calorie summary](images/c2.jpeg)
-![Adding a food item](images/c3.jpeg)
-![Added food item](images/c4.jpeg)
+![Profile setup screen](to_dont_list/images/c1.jpeg)
+![Calorie summary](to_dont_list/images/c2.jpeg)
+![Adding a food item](to_dont_list/images/c3.jpeg)
+![Added food item](to_dont_list/images/c4.jpeg)
 
 ## Features
 
